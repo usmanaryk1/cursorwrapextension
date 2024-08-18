@@ -36,7 +36,7 @@
         }
     ]
   },
-
+"publisher": "By Usman Arshad",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
