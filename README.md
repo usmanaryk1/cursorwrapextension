@@ -150,3 +150,8 @@ Use the generated .vsix file to install the extension:
 code --install-extension your-extension-name.vsix
 Restart VSCode, and your extension will be ready for use.
 
+or clone repository and
+npm install -g vsce
+vsce package
+code --install-extension cursorwrapextension-0.0.1.vsix
+
