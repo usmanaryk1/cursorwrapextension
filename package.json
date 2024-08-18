@@ -1,7 +1,7 @@
 {
   "name": "cursorwrapextension",
   "displayName": "CursorWrapExtension",
-  "description": "An extension that wraps the cursor to the start of the document when it reaches the end.",
+  "description": "An extension that pressing the right arrow key continuously, including moving to the next line and wrapping around the document",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.92.0"
@@ -21,22 +21,22 @@
     "type": "git",
     "url": "https://github.com/usmanaryk1/cursorwrapextension.git"
   },
-  "contributes": {
+ "contributes": {
     "commands": [
-        {
-            "command": "extension.wrapCursor",
-            "title": "Wrap Cursor to Start"
-        }
+      {
+        "command": "extension.startStopMoveCursor",
+        "title": "Start/Stop Cursor Movement"
+      }
     ],
     "keybindings": [
-        {
-            "command": "extension.wrapCursor",
-            "key": "right",
-            "when": "editorTextFocus"
-        }
+      {
+        "command": "extension.startStopMoveCursor",
+        "key": "ctrl+shift+space",
+        "when": "editorTextFocus"
+      }
     ]
   },
-"publisher": "By Usman Arshad",
+  "publisher": "By Usman Arshad",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",

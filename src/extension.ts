@@ -1,32 +1,55 @@
 import * as vscode from 'vscode';
 
+let isMoving = false;
+let intervalId: NodeJS.Timeout | null = null;
+
 export function activate(context: vscode.ExtensionContext) {
-    // Register the command
-    let disposable = vscode.commands.registerCommand('extension.wrapCursor', () => {
-        const editor = vscode.window.activeTextEditor;
 
-        if (editor) {
-            const document = editor.document;
-            const cursorPosition = editor.selection.active;
-            const documentEnd = new vscode.Position(document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length);
+  let moveCursorCommand = vscode.commands.registerCommand('extension.startStopMoveCursor', () => {
+    if (isMoving) {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+      isMoving = false;
+    } else {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const document = editor.document;
+        const totalLines = document.lineCount;
+        const lastLine = totalLines - 1;
 
-            // If the cursor is at the end of the document
-            if (cursorPosition.isEqual(documentEnd)) {
-                // Move to the start of the document
-                const startOfDocument = new vscode.Position(0, 0);
-                editor.selection = new vscode.Selection(startOfDocument, startOfDocument);
-                vscode.window.showInformationMessage('Cursor moved to the start of the document!');
-            } else {
-                // Otherwise, move the cursor to the next character
-                vscode.commands.executeCommand('cursorMove', {
-                    to: 'right',
-                    by: 'character'
-                });
+        intervalId = setInterval(() => {
+          const cursorPosition = editor.selection.active;
+          const currentLine = cursorPosition.line;
+          const currentChar = cursorPosition.character;
+
+          let newLine = currentLine;
+          let newChar = currentChar + 1;
+
+          // Check if we need to move to the next line
+          if (newChar >= document.lineAt(newLine).text.length) {
+            newChar = 0;
+            newLine += 1;
+            // Check if we need to wrap to the top of the document
+            if (newLine >= totalLines) {
+              newLine = 0;
             }
-        }
-    });
+          }
 
-    context.subscriptions.push(disposable);
+          const newPosition = new vscode.Position(newLine, newChar);
+          editor.selection = new vscode.Selection(newPosition, newPosition);
+          editor.revealRange(new vscode.Range(newPosition, newPosition));
+        }, 100); // Adjust the interval speed if needed
+      }
+      isMoving = true;
+    }
+  });
+
+  context.subscriptions.push(moveCursorCommand);
 }
 
-export function deactivate() {}
+export function deactivate() {
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+}
