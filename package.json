@@ -2,7 +2,7 @@
   "name": "cursorwrapextension",
   "displayName": "CursorWrapExtension",
   "description": "An extension that wraps the cursor to the start of the document when it reaches the end.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.92.0"
   },
@@ -23,20 +23,37 @@
   },
   "contributes": {
     "commands": [
-        {
-            "command": "extension.wrapCursor",
-            "title": "Wrap Cursor to Start"
-        }
+      {
+        "command": "extension.wrapCursorRight",
+        "title": "Wrap Cursor to Start (Right Arrow)"
+      },
+      {
+        "command": "extension.wrapCursorDown",
+        "title": "Wrap Cursor to Start (Down Arrow)"
+      },
+      {
+        "command": "extension.wrapCursorEnd",
+        "title": "Wrap Cursor to Start (End Key)"
+      }
     ],
     "keybindings": [
-        {
-            "command": "extension.wrapCursor",
-            "key": "right",
-            "when": "editorTextFocus"
-        }
+      {
+        "command": "extension.wrapCursorRight",
+        "key": "right",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.wrapCursorDown",
+        "key": "down",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.wrapCursorEnd",
+        "key": "end",
+        "when": "editorTextFocus"
+      }
     ]
   },
-"publisher": "By Usman Arshad",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
