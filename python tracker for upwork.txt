@@ -1,0 +1,22 @@
+Steps to Run the Script:
+
+1-Open VSCode: Ensure that you have Visual Studio Code open and active.
+
+2-Save the Script: Save the above Python script as keyboardMouseScreenChangeTracker.py.
+
+3-Run the Script:
+Open a terminal (in VSCode, Bash, CMD, or PowerShell).
+
+Navigate to the directory where the script is located:
+cd path/to/your/script
+
+Run the script:
+python keyboardMouseScreenChangeTracker.py
+
+4-Stopping the Script:
+Type stop in the terminal and press Enter to stop the script gracefully.
+Alternatively, press Ctrl + C to stop the script. The script will now terminate gracefully without leaving any ongoing actions.
+
+keyboardMouseScreenChangeTracker is simple keyboard and mouse events only but not terminate correctly just closed the cmd
+
+keyboardMouseTracker is keyboard and mouse events and also 20 kews down after every 10 minutes so new acreen appear (with that also install vscode custome extension main v2 that whenpage end cursor junp to the start) 
